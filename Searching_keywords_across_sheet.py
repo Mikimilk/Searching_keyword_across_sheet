@@ -72,5 +72,37 @@ for element in configure_item:
 
 #Convert list to dataframe
 conf_frame = pd.DataFrame(conf_list, columns = ['server_name','header_name','p_name'])
+
+#Group header_names and p_names by server_name
+grouped = conf_frame.groupby(['server_name'], sort=False).agg( ','.join)
+#reset index 
+grouped = grouped.reset_index()
+#Convert dataframe to list
+grouped_list = grouped.values.tolist()
+
+#Remove duplicate names in each cell
+temp = []
+for row in grouped_list:
+    if ',' in row[0]:
+        temp = row[0].split(',')
+        temp = list(dict.fromkeys(temp))
+        temp = ','.join(temp)
+        row[0] = temp
+
+    if ',' in row[1]:
+        temp = row[1].split(',')
+        temp = list(dict.fromkeys(temp))
+        temp = ','.join(temp)
+        row[1] = temp
+        
+    if ',' in row[2]:
+        temp = row[2].split(',')
+        temp = list(dict.fromkeys(temp))
+        temp = ','.join(temp)
+        row[2] = temp
+                
+#Convert list to dataframe
+conf_frame = pd.DataFrame(grouped_list, columns = ['server_name','header_name','p_name'])
+
 #Export to .xlsx
 export_excel = conf_frame.to_excel(r'C:\mypath\myfile.xlsx', index = None, header=True)
