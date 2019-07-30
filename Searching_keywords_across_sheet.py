@@ -122,7 +122,7 @@ class ConfiguredOfficer():
 conf_file = input()
 out_path = input()
 
-df = pd.ExcelFile(conf_file) 
+df = pd.ExcelFile('../'+conf_file) 
 colsname = ['server_name' ,'header_name' ,'p_name']
 
 com_sys = pd.read_excel(df, 'COMPUTERSYSTEM',usecols='G:I',header=None ,names=colsname ,skiprows=4)
@@ -137,5 +137,5 @@ configuredOfficer = ConfiguredOfficer(com_list,app_list,colsname)
 conf_frame = configuredOfficer.getOfficerDataFrame()
 print(u'\u2713 ' + "Convert configured list to dataframe.")
 
-export_excel = conf_frame.to_excel(out_path, index = None, header=True)
+export_excel = conf_frame.to_excel('../'+out_path, index = None, header=True)
 print(u'\u2713 ' + "Export configured dataframe to excel file.")
