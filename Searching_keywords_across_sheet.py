@@ -119,7 +119,9 @@ class ConfiguredOfficer():
         return pd.DataFrame(self.grouped_list, columns = self.columns)
 
 #-------------Main-------------#
+print("Configure File:")
 conf_file = input()
+print("Output File's name:")
 out_path = input()
 
 df = pd.ExcelFile('../'+conf_file) 
